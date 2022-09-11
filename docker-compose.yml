@@ -1,0 +1,17 @@
+version: "3.7"
+
+services:
+    login-api:
+      image: login-api-image:latest
+      ports:
+        - 8001:8080
+
+    blocklist-api:
+      image: blocklist-api-image:latest
+      ports:
+        - 8002:80
+
+    card-request-api:
+      image: card-request-api-image:latest
+      ports:
+          - 8003:80
