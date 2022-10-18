@@ -15,3 +15,22 @@ services:
       image: card-request-api-image:latest
       ports:
           - 8003:80
+
+    db:
+      image: mysql
+      command: --default-authentication-plugin=mysql_native_password
+      restart: always
+      environment: 
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_DATABASE: gnb_database
+        MYSQL_USER: user
+        MYSQL_PASSWORD: user    
+      volumes:
+        - ./docker/mysql/data:/var/lib/mysql:rw
+        - ./database/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
+    
+    adminer:
+      image: adminer
+      restart: always
+      ports: 
+        - 8081:8080        

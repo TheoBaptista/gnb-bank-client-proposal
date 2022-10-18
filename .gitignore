@@ -1,0 +1,5 @@
+# docker mySql volume
+docker/*
+
+# vs code
+.vscode
