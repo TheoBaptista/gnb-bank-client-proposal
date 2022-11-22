@@ -1,11 +1,5 @@
-FROM python:3.9
-
-WORKDIR /code
-
-COPY ./requirements.txt /code/requirements.txt
-
-RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
-
-COPY ./app /code/app
-
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]
+FROM openjdk:11
+EXPOSE 8080
+ARG JAR_FILE=target/login-api-0.0.1-SNAPSHOT.jar
+ADD ${JAR_FILE} /app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]
