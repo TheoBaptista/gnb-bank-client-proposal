@@ -3,8 +3,6 @@ package br.com.gnb.loginapi.error.handler;
 import br.com.gnb.loginapi.error.exception.NotSameUserException;
 import br.com.gnb.loginapi.error.exception.UserNotFoundException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.FieldError;
@@ -20,9 +18,6 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestControllerAdvice
 public class ExceptionHandlerAdvice {
-
-    @Autowired
-    private MessageSource messageSource;
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)

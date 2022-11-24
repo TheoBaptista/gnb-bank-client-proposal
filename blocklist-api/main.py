@@ -4,7 +4,7 @@ app = FastAPI()
 
 
 class Card:
-    def __init__(self,cpf) -> None:
+    def __init__(self, cpf) -> None:
         super().__init__()
         self.cpf = cpf
         self.number = "1111 2222 3333 4444"

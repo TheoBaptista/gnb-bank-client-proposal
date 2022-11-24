@@ -22,14 +22,16 @@ public class UserController {
     private UserService service;
 
     @PostMapping
-    public ResponseEntity<String> createUser(@RequestBody @Valid UserRequest request, UriComponentsBuilder builder){
+    public ResponseEntity<String> createUser(@RequestBody @Valid UserRequest request, UriComponentsBuilder builder) {
         String clientId = service.saveUser(request);
 
         log.info("Usuário criado com suceso: client-id - {}", clientId);
 
-        URI uri = builder.path("/user/{id}").buildAndExpand(clientId).toUri();
+        URI uri = builder.path("/status/{id}").buildAndExpand(clientId).toUri();
 
         return ResponseEntity.created(uri).build();
-    };
+    }
+
+    ;
 
 }

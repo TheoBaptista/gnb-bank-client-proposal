@@ -14,10 +14,17 @@ public class StatusController {
     private StatusService statusService;
 
     @GetMapping("/{client-id}")
-    private ResponseEntity<StatusResponse> getStatus(@RequestHeader("Authorization")String token, @PathVariable("client-id") String clientId){
+    private ResponseEntity<StatusResponse> getClient(@RequestHeader("Authorization") String token, @PathVariable("client-id") String clientId) {
 
         StatusResponse userStatus = statusService.getUserStatus(token, clientId);
 
         return ResponseEntity.ok(userStatus);
     }
+
+    @GetMapping
+    private ResponseEntity<StatusResponse> getStatus(@RequestHeader("Authorization") String token) {
+
+        return ResponseEntity.ok().build();
+    }
+
 }
