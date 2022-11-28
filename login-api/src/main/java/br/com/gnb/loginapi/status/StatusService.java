@@ -22,10 +22,9 @@ public class StatusService {
 
         if (user.isEmpty()) {
             log.error("user not found client-id : {}", clientId);
-
             throw new UserNotFoundException("Usuário não encontrado!");
         }
-
+        log.info("User founded client-id : {}",user.get().getClientId());
         return StatusResponse.build(user.get());
     }
 

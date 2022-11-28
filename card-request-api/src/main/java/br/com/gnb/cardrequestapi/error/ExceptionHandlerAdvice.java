@@ -13,6 +13,7 @@ public class ExceptionHandlerAdvice {
     @ExceptionHandler(ApiErrorException.class)
     public ResponseEntity<ErrorResponse> notSameUserExceptionHandle(ApiErrorException exception) {
         log.error("ERROR CODE : {}  ERROR MESSAGE : {}",exception.getSTATUS_CODE(),exception.getMessage());
+        log.error("STACKTRACE : {}", exception);
         return ResponseEntity.status(HttpStatus.valueOf(exception.getSTATUS_CODE())).body(new ErrorResponse(exception.getMessage()));
     }
 

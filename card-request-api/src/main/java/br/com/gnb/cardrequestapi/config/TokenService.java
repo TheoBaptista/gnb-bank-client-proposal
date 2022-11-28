@@ -18,6 +18,7 @@ public class TokenService {
     public boolean checkToken(String token) {
 
         try {
+            log.info("CALLING LOGIN API TO VERIFY TOKEN");
             client.verifyStatus(token);
             return true;
         } catch (Exception e) {

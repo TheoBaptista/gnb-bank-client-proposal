@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 @FeignClient(name = "${login.name}", url = "${login.url}")
 public interface TokenFeignClient {
 
-    @GetMapping(path = "/status")
+    @GetMapping(path = "/api/status")
     String verifyStatus(@RequestHeader("Authorization") String token);
 
 }

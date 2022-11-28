@@ -23,13 +23,22 @@ public class ProposeService {
             throw new ApiErrorException("ALREADY EXIST A PROPOSE WHIT THIS CPF",422);
         }
 
+
         Propose propose = request.toModel();
         Propose savedPropose = repository.save(propose);
+        log.info("PROPOSE CREATED WHIT CLIENT-ID {}",savedPropose.getClientId());
+
         return new ProposeResponse(savedPropose);
     }
 
-    public Optional<Propose>  getPropose(String clientId){
-       return repository.findByClientId(clientId);
+    public ProposeCardResponse getPropose(String clientId){
+       Optional<Propose> propose = repository.findByClientId(clientId);
+        if (propose.isEmpty()){
+            throw new ApiErrorException("NOT FOUND A PROPOSE WHIT THIS CLIENT-ID",404);
+        }
+        log.info("PROPOSE FOUNDED {}",propose.get().getProposeNumber());
+        ProposeCardResponse proposeCardResponse = new ProposeCardResponse(propose.get());
+        return proposeCardResponse;
     }
 
 }

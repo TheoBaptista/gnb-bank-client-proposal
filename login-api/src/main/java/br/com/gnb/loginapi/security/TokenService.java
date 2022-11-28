@@ -1,17 +1,16 @@
 package br.com.gnb.loginapi.security;
 
 import br.com.gnb.loginapi.user.User;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
 
 import java.util.Date;
 
-@Slf4j
+
 @Service
 public class TokenService {
 
@@ -34,8 +33,6 @@ public class TokenService {
                 .setExpiration(expirationDate)
                 .signWith(SignatureAlgorithm.HS256, secret)
                 .compact();
-                //alterar para PEM
-
     }
 
     public boolean isValidToken(String token) {
