@@ -2,24 +2,36 @@ version: "3.7"
 
 services:
     login-api:
-      image: login-api-image:latest
+      image: login-api:latest
       ports:
         - 8001:8080
       depends_on:
-        - login-db  
+        - login-db
+      environment:
+        DB_URL: jdbc:mysql://login-db:3306/login_database
+        DB_USER: user
+        DB_PASSWORD: user    
 
     blocklist-api:
-      image: blocklist-api-image:latest
+      image: blocklist-api:latest
       ports:
         - 8002:80
 
     card-request-api:
-      image: card-request-api-image:latest
+      image: card-request-api:latest
       ports:
-          - 8003:80
+          - 8004:8080
       depends_on:
           - card-request-db
           - blocklist-api  
+      environment:
+        DB_URL: jdbc:mysql://card-request-db:3306/card_request_database
+        DB_USER: user
+        DB_PASSWORD: user
+        INITIAL_TIME_SCHEDULED: 30000
+        PERIODIC_TIME_SCHEDULED: 60000
+        LOGIN_URL: http://login-api:8080
+        BLOCKLIST_URL: http://blocklist-api:80     
 
     login-db:
       image: 'mysql:latest'
@@ -31,8 +43,7 @@ services:
         MYSQL_ROOT_PASSWORD: root
         MYSQL_USER: user
         MYSQL_PASSWORD: user
-        MYSQL_DATABASE: login_database
-        MYSQL_HOST: localhost   
+        MYSQL_DATABASE: login_database        
 
     card-request-db:
       image: 'mysql:latest'
@@ -44,9 +55,7 @@ services:
         MYSQL_ROOT_PASSWORD: root
         MYSQL_USER: user
         MYSQL_PASSWORD: user
-        MYSQL_DATABASE: card_request_database
-        MYSQL_HOST: localhost      
-
+        MYSQL_DATABASE: card_request_database       
     
     adminer:
       image: adminer

@@ -31,7 +31,7 @@ public class Propose {
     @Column(nullable = false, unique = true)
     private String clientId;
 
-    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.MERGE)
+    @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.MERGE)
     @JoinColumn(name = "card_id")
     private Card card;
 

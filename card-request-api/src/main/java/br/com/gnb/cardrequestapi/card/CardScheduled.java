@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Slf4j
@@ -17,12 +18,10 @@ public class CardScheduled {
 
     @Autowired
     private ProposeRepository repository;
-
-    private CardRepository cardRepository;
-
     @Autowired
     private CardFeignClient cardClient;
 
+    @Transactional
     @Scheduled(initialDelayString = "${initial.time.blocklist.consult}", fixedDelayString = "${periodic.time.blocklist.consult}")
     public void consultCard() {
 
@@ -41,9 +40,8 @@ public class CardScheduled {
                 CardClientResponse cardClientResponse = cardClient.consultBlocklist(propose.getCpf());
                 Card card = cardClientResponse.toModel();
 
-
-                propose.setStatus(ProposeStatus.CREATED);
                 propose.setCard(card);
+                propose.setStatus(ProposeStatus.CREATED);
                 repository.save(propose);
 
                 log.info("COSTUMER CREATED");
